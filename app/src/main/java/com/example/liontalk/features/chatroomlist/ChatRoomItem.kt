@@ -54,7 +54,7 @@ fun ChatRoomItem(room: ChatRoomEntity, onClick: (ChatRoomEntity) -> Unit) {
             ){
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "${room.owner}",
+                        text = "${room.owner.name}",
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Gray,
                         maxLines = 1,

@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.liontalk.data.local.AppDatabase
 import com.example.liontalk.data.local.entity.ChatRoomEntity
 import com.example.liontalk.data.repository.ChatRoomRepository
+import com.example.liontalk.data.repository.UserPreferenceRepository
 import com.example.liontalk.model.ChatRoomMapper.toDto
+import com.example.liontalk.model.ChatUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -16,9 +18,11 @@ import kotlinx.coroutines.withContext
 class ChatRoomListViewModel(application: Application) : ViewModel() {
     private val _state = MutableLiveData(ChatRoomListState())
     val state: LiveData<ChatRoomListState> = _state
-//    private val chatRoomDao = AppDatabase.create(application).chatRoomDao()
 
-    private val chatRoomRepository = ChatRoomRepository(application)
+    private val chatRoomRepository = ChatRoomRepository(application.applicationContext)
+
+    private val userPreferenceRepository = UserPreferenceRepository.getInstance()
+    val me: ChatUser get() = userPreferenceRepository.requireMe()
 
     init {
         loadChatRooms()
@@ -52,7 +56,7 @@ class ChatRoomListViewModel(application: Application) : ViewModel() {
             try {
                 val room = ChatRoomEntity(
                     title = title,
-                    owner = "안현진",
+                    owner = me,
                     users = emptyList(),
                     createdAt = System.currentTimeMillis()
                 )
