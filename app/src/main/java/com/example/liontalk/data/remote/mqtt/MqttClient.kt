@@ -34,7 +34,7 @@ object MqttClient {
         }
     }
 
-    fun setOnMessageRecieved(callback: (topic: String, message: String) -> Unit) {
+    fun setOnMessageReceived(callback: (topic: String, message: String) -> Unit) {
         messageCallback = callback
     }
 

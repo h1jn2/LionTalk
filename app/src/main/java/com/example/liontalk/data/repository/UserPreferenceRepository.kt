@@ -31,6 +31,7 @@ class UserPreferenceRepository private constructor(private val context: Context)
         user.avatarUrl?.let {
             PreferenceDataStore.setString(context, "AVATAR_URL", it)
         }
+        _user.value = user
     }
 
     companion object {
